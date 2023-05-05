@@ -1,16 +1,6 @@
-public class Titular {
-    private String nomeTitular;
+public class Titular extends Pessoa {
     private int numeroConta;
     private double saldo;
-
-    public String getNomeTitular() {
-        return nomeTitular;
-    }
-
-    public void setNomeTitular(String nomeTitular) {
-        this.nomeTitular = nomeTitular;
-    }
-
 
     public int getNumeroConta() {
         return numeroConta;
