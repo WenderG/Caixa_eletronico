@@ -2,19 +2,19 @@ public class Pessoa {
     protected String nome;
     private String cpf;
 
-    public String getNome() {
+    public String pegarNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void definirNome(String nome) {
         this.nome = nome;
     }
 
-    public String getCpf() {
+    public String pegarCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void definirCpf(String cpf) {
         this.cpf = cpf;
     }
 }
