@@ -1,28 +1,127 @@
+import java.io.IOException;
+import java.util.Scanner;
+import java.lang.Thread;
+
 public class CaixaEletronico {
-    public static void main(String[] args) {
-        Titular Thiago = new Titular();
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-        Thiago.definirNome("Thiago Wender Gonsales");
-        Thiago.definirCpf("123.456.789-00");
-        Thiago.definirNumeroConta(1234567890);
-        Thiago.definirSaldo(1320.00);
+        Scanner entrada = new Scanner(System.in);
 
-        Thiago.imprimir(Thiago.pegarNome(), Thiago.pegarCpf(), Thiago.pegarNumeroConta(), Thiago.pegarSaldo());
+        int tam = 5;
 
-        System.out.println();
+        Titular[] contasRegistradas = new Titular[tam];
 
-        Titular Joao = new Titular();
+        boolean aux = true;
+        int opcao, contas = 0, i = 0;
 
-        Joao.definirNome("Joao Jose Caetano");
-        Joao.definirCpf("987.654.321-00");
-        Joao.definirNumeroConta(987654321);
-        Joao.definirSaldo(2500.00);
+        do {
+            
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 
-        Joao.imprimir(Joao.pegarNome(), Joao.pegarCpf(), Joao.pegarNumeroConta(), Joao.pegarSaldo());
+            System.out.println();
+            System.out.printf("\t\tWENDERCAIXA");
+            System.out.println("\n");
+            
+            System.out.printf("\tEscolha uma opção:");
+            System.out.println("\n");
+            System.out.printf("[1] - Criar conta\n[2] - Contas cadastradas\n[0] - Sair\n");
+            System.out.println();
+            
+            System.out.printf("Decisão: ");
+            opcao = Integer.parseInt(entrada.nextLine());
 
-        Joao.sacar(Joao.pegarNome(), 1000.00);
-        Thiago.depositar(Thiago.pegarNome(), 100.0);
-        Thiago.tranferir(Thiago.pegarNome(), 15.45, Joao);
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+
+            switch(opcao){
+                case 0:
+                    try {
+                        System.out.println("Encerrando...");
+                        Thread.sleep(2000);
+
+                    } catch (Exception e) {
+                        System.out.println(e);
+
+                    }
+
+                    aux = false;
+                    break;
+
+                case 1:
+                    if(contas < tam) {
+                        contas++;
+
+                        Titular titular = new Titular();
+
+                        System.out.printf("Nome do Titular: ");
+                        titular.definirNome(entrada.nextLine());
+                        System.out.println();
+
+                        System.out.printf("CPF do Titular: ");
+                        titular.definirCpf(entrada.nextLine());
+                        System.out.println();
+
+                        titular.definirNumeroConta(contas);
+
+                        System.out.println("Deseja fazer um depósito inicial?");
+                        System.out.printf("[1] - Sim\n[2] - Não\n");
+                        System.out.println();
+                        System.out.printf("Decisão: ");
+                        opcao = Integer.parseInt(entrada.nextLine());
+
+                        if(opcao == 1) {
+                            System.out.printf("Valor a ser depositado (R$): ");
+                            titular.definirSaldo(Double.parseDouble(entrada.nextLine()));
+                        }
+
+                        System.out.println();
+
+                        contasRegistradas[i] = titular;
+
+                        i++;
+                        
+                        System.out.println("Conta cadastrada com sucesso!\n");
+
+                        System.out.println("Pressione ENTER para continuar...");
+                        entrada.nextLine();
+                    
+                    }else {
+                        System.out.println("Memória insuficiente!\n");
+
+                        System.out.println("Pressione ENTER para continuar...");
+                        entrada.nextLine();
+                    }
+                    break;
+
+                case 2:
+                    for(int j = 0; j < tam; j++) {              
+                        if(contasRegistradas[j] != null) {
+                            System.out.printf("Titular: %s", contasRegistradas[j].pegarNome());
+                            System.out.println();
+                            System.out.printf("CPF: %s", contasRegistradas[j].pegarCpf());
+                            System.out.println();
+                            System.out.printf("Número da Conta: %d", contasRegistradas[j].pegarNumeroConta());
+                            System.out.println();
+                            System.out.printf("Saldo Atual: R$%.2f", contasRegistradas[j].pegarSaldo());
+                            System.out.println("\n");
+                        }
+                    }
+
+                    System.out.println("\n");
+                    System.out.println("Pressione ENTER para continuar...");
+                    entrada.nextLine();
+                    break;
+
+                default:
+                    System.out.println("Opção inválida!");
+                    System.out.println("\n");
+                    System.out.println("Pressione ENTER para continuar...");
+                    entrada.nextLine();
+                    break;
+            }
+
+        }while(aux);
+        
+        entrada.close();
 
     }
 
