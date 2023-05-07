@@ -1,5 +1,3 @@
-
-
 public class Titular extends Pessoa {
     private int numeroConta;
     private double saldo = 0;
@@ -65,17 +63,6 @@ public class Titular extends Pessoa {
         System.out.printf("Saldo Atual: R$%.2f", conta.pegarSaldo());
         System.out.println();
         
-    }
-
-    public void imprimir(String nome, String cpf, int numeroConta, double saldo) {
-        System.out.printf("Titular: %s", nome);
-        System.out.println();
-        System.out.printf("CPF: %s", cpf);
-        System.out.println();
-        System.out.printf("Número da Conta: %d", numeroConta);
-        System.out.println();
-        System.out.printf("Saldo Atual: R$%.2f", this.saldo);
-        System.out.println();
     }
 
 }
