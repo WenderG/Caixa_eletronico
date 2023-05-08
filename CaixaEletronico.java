@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 import java.lang.Thread;
+import java.time.temporal.TemporalAmount;
 
 public class CaixaEletronico {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -24,7 +25,7 @@ public class CaixaEletronico {
             
             System.out.printf("\tEscolha uma opção:");
             System.out.println("\n");
-            System.out.printf("[1] - Criar conta\n[2] - Contas cadastradas\n[0] - Sair\n");
+            System.out.printf("[1] - Criar conta\n[2] - Acessar uma conta\n[3] - Editar informações\n[4] - Excluir conta\n[0] - Sair\n");
             System.out.println();
             
             System.out.printf("Decisão: ");
@@ -93,16 +94,77 @@ public class CaixaEletronico {
                     break;
 
                 case 2:
-                    for(int j = 0; j < tam; j++) {              
-                        if(contasRegistradas[j] != null) {
-                            System.out.printf("Titular: %s", contasRegistradas[j].pegarNome());
+                    if(contas == 0) {
+                        System.out.println("Contas não encontradas ou inexistentes!");
+                        
+                    }else {
+                        System.out.println("Número da conta: ");
+                        opcao = Integer.parseInt(entrada.nextLine());
+                        opcao--;      
+    
+                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+
+                        if(opcao <= contas || contas >= 0 ) {
+                            System.out.printf("Titular: %s", contasRegistradas[opcao].pegarNome());
                             System.out.println();
-                            System.out.printf("CPF: %s", contasRegistradas[j].pegarCpf());
+                            System.out.printf("CPF: %s", contasRegistradas[opcao].pegarCpf());
                             System.out.println();
-                            System.out.printf("Número da Conta: %d", contasRegistradas[j].pegarNumeroConta());
+                            System.out.printf("Número da Conta: %d", contasRegistradas[opcao].pegarNumeroConta());
                             System.out.println();
-                            System.out.printf("Saldo Atual: R$%.2f", contasRegistradas[j].pegarSaldo());
+                            System.out.printf("Saldo Atual: R$%.2f", contasRegistradas[opcao].pegarSaldo());
                             System.out.println("\n");
+
+                        } else {
+                            System.out.println("Conta não encontrada ou inexistente!");
+
+                        }
+                    }
+
+                    System.out.println("\n");
+                    System.out.println("Pressione ENTER para continuar...");
+                    entrada.nextLine();
+                    break;
+                
+
+                case 3:
+                    if(contas == 0){
+                        System.out.println("Contas não encontrada ou inexistente!");
+                        
+                    }else {       
+                        System.out.println("Número da conta: ");
+                        opcao = Integer.parseInt(entrada.nextLine());
+                        opcao--;
+
+                        if(opcao <= contas || opcao >= 0) {
+                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+
+                            System.out.printf("[1] - Editar nome\n[2] - Editar CPF\n");
+                            int opc = Integer.parseInt(entrada.nextLine());
+
+                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+
+                            if(opc == 1) {
+                                System.out.printf("Nome do Titular atual: %s", contasRegistradas[opcao].pegarNome());
+                                System.out.println();
+                                System.out.printf("Nome do Titular novo: ");
+                                contasRegistradas[opcao].definirNome(entrada.nextLine());
+                                System.out.println();
+
+                                System.out.println("Nome do Titular editado com sucesso!\n");
+
+                            } else{
+                                System.out.printf("CPF do Titular atual: %s", contasRegistradas[opcao].pegarCpf());
+                                System.out.println();
+                                System.out.printf("CPF do Titular novo: ");
+                                contasRegistradas[opcao].definirCpf(entrada.nextLine());
+                                System.out.println();
+
+                                System.out.println("Nome do Titular editado com sucesso!\n");
+
+                            }
+                        } else {
+                            System.out.println("Contas não encontradas ou inexistentes!");
+
                         }
                     }
 
@@ -111,6 +173,9 @@ public class CaixaEletronico {
                     entrada.nextLine();
                     break;
 
+                case 4:
+                    break;
+                       
                 default:
                     System.out.println("Opção inválida!");
                     System.out.println("\n");
