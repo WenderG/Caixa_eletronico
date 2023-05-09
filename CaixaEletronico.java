@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
 import java.lang.Thread;
-import java.time.temporal.TemporalAmount;
 
 public class CaixaEletronico {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -104,7 +103,10 @@ public class CaixaEletronico {
     
                         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 
-                        if(opcao <= contas || contas >= 0 ) {
+                        if(contasRegistradas[opcao] == null){
+                            System.out.println("Conta não encontrada ou inexistente!");
+
+                        }else if(opcao <= contas || contas >= 0 ) {
                             System.out.printf("Titular: %s", contasRegistradas[opcao].pegarNome());
                             System.out.println();
                             System.out.printf("CPF: %s", contasRegistradas[opcao].pegarCpf());
@@ -135,8 +137,12 @@ public class CaixaEletronico {
                         opcao = Integer.parseInt(entrada.nextLine());
                         opcao--;
 
-                        if(opcao <= contas || opcao >= 0) {
-                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+
+                        if(contasRegistradas[opcao] == null) {
+                            System.out.println("Conta não encontrada ou inexistente!");
+
+                        }else if(opcao <= contas || opcao >= 0) {
 
                             System.out.printf("[1] - Editar nome\n[2] - Editar CPF\n");
                             int opc = Integer.parseInt(entrada.nextLine());
@@ -159,7 +165,7 @@ public class CaixaEletronico {
                                 contasRegistradas[opcao].definirCpf(entrada.nextLine());
                                 System.out.println();
 
-                                System.out.println("Nome do Titular editado com sucesso!\n");
+                                System.out.println("CPF do Titular editado com sucesso!\n");
 
                             }
                         } else {
@@ -174,7 +180,35 @@ public class CaixaEletronico {
                     break;
 
                 case 4:
-                    break;
+                    if(contas == 0){
+                        System.out.println("Contas não encontradas ou inexistentes!");
+                        
+                    }else {       
+                        System.out.println("Número da conta: ");
+                        opcao = Integer.parseInt(entrada.nextLine());
+                        opcao--;
+
+                        if(contasRegistradas[opcao] == null) {
+                            System.out.println("Conta não encontrada ou inexistente!");
+
+                        }else if(opcao <= contas || opcao >= 0) {
+                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+
+                            contasRegistradas[opcao] = null;
+
+                            System.out.println("Conta deletada com sucesso!\n");
+
+                            
+                        } else {
+                            System.out.println("Contas não encontradas ou inexistentes!");
+
+                        }
+                    }
+
+                    System.out.println("\n");
+                    System.out.println("Pressione ENTER para continuar...");
+                    entrada.nextLine();
+                        break;
                        
                 default:
                     System.out.println("Opção inválida!");
