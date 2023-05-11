@@ -96,6 +96,9 @@ public class CaixaEletronico {
                 case 2:
                     if(contas == 0) {
                         System.out.println("Contas não encontradas ou inexistentes!");
+                        System.out.println("\n\n\n");
+                        System.out.println("Pressione ENTER para continuar...");
+                        entrada.nextLine();
                         
                     }else {
                         System.out.print("Número da conta: ");
@@ -106,6 +109,9 @@ public class CaixaEletronico {
 
                         if(contasRegistradas[opcao] == null){
                             System.out.println("Conta não encontrada ou inexistente!");
+                            System.out.println("\n\n\n");
+                            System.out.println("Pressione ENTER para continuar...");
+                            entrada.nextLine();
 
                         }else if(opcao <= contas || contas >= 0 ) {
                             System.out.printf("Conta: #%d\n\n", contasRegistradas[opcao].pegarNumeroConta());
@@ -119,11 +125,16 @@ public class CaixaEletronico {
                             
                             System.out.printf("Decisão: ");
                             int opc = Integer.parseInt(entrada.nextLine());
-                                            
+                            
+                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+
                             switch(opc){
                                 case 0:
                                     break;
                                 case 1:
+                                    System.out.printf("Valor de depósito: ");
+                                    contasRegistradas[opcao].depositar(contasRegistradas[opcao].pegarNome(), Double.parseDouble(entrada.nextLine()));
+
                                     break;
                                 case 2:
                                     break;
@@ -170,12 +181,12 @@ public class CaixaEletronico {
 
                         } else {
                             System.out.println("Conta não encontrada ou inexistente!");
+                            System.out.println("\n\n\n");
+                            System.out.println("Pressione ENTER para continuar...");
+                            entrada.nextLine();
                         }
                     }
 
-                    System.out.println("\n\n\n");
-                    System.out.println("Pressione ENTER para continuar...");
-                    entrada.nextLine();
                     break;
                 
                 case 3:
