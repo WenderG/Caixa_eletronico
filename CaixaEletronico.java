@@ -117,7 +117,7 @@ public class CaixaEletronico {
                             System.out.printf("Conta: #%d\n\n", contasRegistradas[opcao].pegarNumeroConta());
                             System.out.printf("Titular: %s\n", contasRegistradas[opcao].pegarNome());
                             System.out.printf("CPF: %s\n", contasRegistradas[opcao].pegarCpf());
-                            System.out.printf("Saldo Atual: R$%.2f\n\n\n", contasRegistradas[opcao].pegarSaldo());
+                            System.out.printf("Saldo Atual (R$): %.2f\n\n\n", contasRegistradas[opcao].pegarSaldo());
 
                             System.out.println("O que deseja fazer?");
                             System.out.printf("[1] - Depositar\n[2] - Sacar\n[3] - Transferir\n[4] - Editar informações\n[0] - Sair\n");
@@ -131,15 +131,22 @@ public class CaixaEletronico {
                             switch(opc){
                                 case 0:
                                     break;
+
                                 case 1:
                                     System.out.printf("Valor de depósito: ");
                                     contasRegistradas[opcao].depositar(contasRegistradas[opcao].pegarNome(), Double.parseDouble(entrada.nextLine()));
 
                                     break;
+
                                 case 2:
+                                    System.out.printf("Valor a ser retirado: ");
+                                    contasRegistradas[opcao].sacar(contasRegistradas[opcao].pegarNome(), Double.parseDouble(entrada.nextLine()));
+
                                     break;
+
                                 case 3:
                                     break;
+
                                 case 4:    
                                     System.out.printf("[1] - Editar nome\n[2] - Editar CPF\n");
                                     opc = Integer.parseInt(entrada.nextLine());
