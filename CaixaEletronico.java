@@ -136,15 +136,44 @@ public class CaixaEletronico {
                                     System.out.printf("Valor de depósito: ");
                                     contasRegistradas[opcao].depositar(contasRegistradas[opcao].pegarNome(), Double.parseDouble(entrada.nextLine()));
 
+                                    System.out.println("Pressione ENTER para continuar...");
+                                    entrada.nextLine();
+
                                     break;
 
                                 case 2:
-                                    System.out.printf("Valor a ser retirado: ");
+                                    System.out.printf("Valor a ser retirado (R$): ");
                                     contasRegistradas[opcao].sacar(contasRegistradas[opcao].pegarNome(), Double.parseDouble(entrada.nextLine()));
+
+                                    System.out.println("Pressione ENTER para continuar...");
+                                    entrada.nextLine();
 
                                     break;
 
                                 case 3:
+                                    System.out.printf("Numero da conta do destinatário: ");
+                                    int nConta = Integer.parseInt(entrada.nextLine());
+                                    nConta--;
+
+                                    if(contasRegistradas[nConta] == null) {
+                                        System.out.println("\n\nConta não encontrada ou inexistente!");
+                                        System.out.println("\n\n\n");
+                                        System.out.println("Pressione ENTER para continuar...");
+                                        entrada.nextLine();
+
+                                        break;
+                                    }
+
+                                    System.out.println();
+
+                                    System.out.printf("Valor a ser transferido: ");
+                                    double valorSaque = Double.parseDouble(entrada.nextLine());
+
+                                    contasRegistradas[opcao].tranferir(contasRegistradas[opcao].pegarNome(), valorSaque, contasRegistradas[nConta]);
+
+                                    System.out.println("Pressione ENTER para continuar...");
+                                    entrada.nextLine();
+
                                     break;
 
                                 case 4:    
