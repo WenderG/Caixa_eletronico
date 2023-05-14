@@ -94,6 +94,8 @@ public class CaixaEletronico {
                     break;
 
                 case 2:
+                    boolean aux2 = true;
+
                     if(contas == 0) {
                         System.out.println("Contas não encontradas ou inexistentes!");
                         System.out.println("\n\n\n");
@@ -104,127 +106,133 @@ public class CaixaEletronico {
                         System.out.print("Número da conta: ");
                         opcao = Integer.parseInt(entrada.nextLine());
                         opcao--;      
-    
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 
                         if(contasRegistradas[opcao] == null){
+                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+
                             System.out.println("Conta não encontrada ou inexistente!");
                             System.out.println("\n\n\n");
                             System.out.println("Pressione ENTER para continuar...");
                             entrada.nextLine();
 
                         }else if(opcao <= contas || contas >= 0 ) {
-                            System.out.printf("Conta: #%d\n\n", contasRegistradas[opcao].pegarNumeroConta());
-                            System.out.printf("Titular: %s\n", contasRegistradas[opcao].pegarNome());
-                            System.out.printf("CPF: %s\n", contasRegistradas[opcao].pegarCpf());
-                            System.out.printf("Saldo Atual (R$): %.2f\n\n\n", contasRegistradas[opcao].pegarSaldo());
-
-                            System.out.println("O que deseja fazer?");
-                            System.out.printf("[1] - Depositar\n[2] - Sacar\n[3] - Transferir\n[4] - Editar informações\n[0] - Sair\n");
-                            System.out.println();
+                            do {
+                                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                                
+                                System.out.printf("Conta: #%d\n\n", contasRegistradas[opcao].pegarNumeroConta());
+                                System.out.printf("Titular: %s\n", contasRegistradas[opcao].pegarNome());
+                                System.out.printf("CPF: %s\n", contasRegistradas[opcao].pegarCpf());
+                                System.out.printf("Saldo Atual (R$): %.2f\n\n\n", contasRegistradas[opcao].pegarSaldo());
                             
-                            System.out.printf("Decisão: ");
-                            int opc = Integer.parseInt(entrada.nextLine());
+                                System.out.println("O que deseja fazer?");
+                                System.out.printf("[1] - Depositar\n[2] - Sacar\n[3] - Transferir\n[4] - Editar informações\n[0] - Sair\n");
+                                System.out.println();
+                                
+                                System.out.printf("Decisão: ");
+                                int opc = Integer.parseInt(entrada.nextLine());
+                                
+                                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();  
                             
-                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-
-                            switch(opc){
-                                case 0:
-                                    break;
-
-                                case 1:
-                                    System.out.printf("Valor de depósito: ");
-                                    contasRegistradas[opcao].depositar(contasRegistradas[opcao].pegarNome(), Double.parseDouble(entrada.nextLine()));
-
-                                    System.out.println("Pressione ENTER para continuar...");
-                                    entrada.nextLine();
-
-                                    break;
-
-                                case 2:
-                                    System.out.printf("Valor a ser retirado (R$): ");
-                                    contasRegistradas[opcao].sacar(contasRegistradas[opcao].pegarNome(), Double.parseDouble(entrada.nextLine()));
-
-                                    System.out.println("Pressione ENTER para continuar...");
-                                    entrada.nextLine();
-
-                                    break;
-
-                                case 3:
-                                    System.out.printf("Numero da conta do destinatário: ");
-                                    int nConta = Integer.parseInt(entrada.nextLine());
-                                    nConta--;
-
-                                    if(contasRegistradas[nConta] == null) {
-                                        System.out.println("\n\nConta não encontrada ou inexistente!");
-                                        System.out.println("\n\n\n");
+                                switch(opc){
+                                    case 0:
+                                        aux2 = false;
+                                        break;
+    
+                                    case 1:
+                                        System.out.printf("Valor de depósito: ");
+                                        contasRegistradas[opcao].depositar(contasRegistradas[opcao].pegarNome(), Double.parseDouble(entrada.nextLine()));
+    
                                         System.out.println("Pressione ENTER para continuar...");
                                         entrada.nextLine();
-
+    
                                         break;
-                                    }
-
-                                    System.out.println();
-
-                                    System.out.printf("Valor a ser transferido: ");
-                                    double valorSaque = Double.parseDouble(entrada.nextLine());
-
-                                    contasRegistradas[opcao].tranferir(contasRegistradas[opcao].pegarNome(), valorSaque, contasRegistradas[nConta]);
-
-                                    System.out.println("Pressione ENTER para continuar...");
-                                    entrada.nextLine();
-
-                                    break;
-
-                                case 4:    
-                                    System.out.printf("[1] - Editar nome\n[2] - Editar CPF\n");
-                                    opc = Integer.parseInt(entrada.nextLine());
-        
-                                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        
-                                    if(opc == 1) {
-                                        System.out.printf("Nome do Titular atual: %s", contasRegistradas[opcao].pegarNome());
+    
+                                    case 2:
+                                        System.out.printf("Valor a ser retirado (R$): ");
+                                        contasRegistradas[opcao].sacar(contasRegistradas[opcao].pegarNome(), Double.parseDouble(entrada.nextLine()));
+    
+                                        System.out.println("Pressione ENTER para continuar...");
+                                        entrada.nextLine();
+    
+                                        break;
+    
+                                    case 3:
+                                        System.out.printf("Numero da conta do destinatário: ");
+                                        int nConta = Integer.parseInt(entrada.nextLine());
+                                        nConta--;
+    
+                                        if(contasRegistradas[nConta] == null) {
+                                            System.out.println("\n\nConta não encontrada ou inexistente!");
+                                            System.out.println("\n\n\n");
+                                            System.out.println("Pressione ENTER para continuar...");
+                                            entrada.nextLine();
+    
+                                            break;
+                                        }
+    
                                         System.out.println();
-                                        System.out.printf("Nome do Titular novo: ");
-                                        contasRegistradas[opcao].definirNome(entrada.nextLine());
-                                        System.out.println();
-        
-                                        System.out.println("Nome do Titular editado com sucesso!\n");
-        
-                                    } else{
-                                        System.out.printf("CPF do Titular atual: %s", contasRegistradas[opcao].pegarCpf());
-                                        System.out.println();
-                                        System.out.printf("CPF do Titular novo: ");
-                                        contasRegistradas[opcao].definirCpf(entrada.nextLine());
-                                        System.out.println();
-        
-                                        System.out.println("CPF do Titular editado com sucesso!\n");
-        
-                                    }
-                
-                                    System.out.println("Pressione ENTER para continuar...");
-                                    entrada.nextLine();
-                
-                                    break;
-
-                                default:
-                                    System.out.println("Opção inválida!");
-                                    System.out.println("\n");
-                                    System.out.println("Pressione ENTER para continuar...");
-                                    entrada.nextLine();
-                                    break;
+    
+                                        System.out.printf("Valor a ser transferido: ");
+                                        double valorSaque = Double.parseDouble(entrada.nextLine());
+    
+                                        contasRegistradas[opcao].tranferir(contasRegistradas[opcao].pegarNome(), valorSaque, contasRegistradas[nConta]);
+    
+                                        System.out.println("Pressione ENTER para continuar...");
+                                        entrada.nextLine();
+    
+                                        break;
+    
+                                    case 4:    
+                                        System.out.printf("[1] - Editar nome\n[2] - Editar CPF\n");
+                                        opc = Integer.parseInt(entrada.nextLine());
+            
+                                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            
+                                        if(opc == 1) {
+                                            System.out.printf("Nome do Titular atual: %s", contasRegistradas[opcao].pegarNome());
+                                            System.out.println();
+                                            System.out.printf("Nome do Titular novo: ");
+                                            contasRegistradas[opcao].definirNome(entrada.nextLine());
+                                            System.out.println();
+            
+                                            System.out.println("Nome do Titular editado com sucesso!\n");
+            
+                                        } else{
+                                            System.out.printf("CPF do Titular atual: %s", contasRegistradas[opcao].pegarCpf());
+                                            System.out.println();
+                                            System.out.printf("CPF do Titular novo: ");
+                                            contasRegistradas[opcao].definirCpf(entrada.nextLine());
+                                            System.out.println();
+            
+                                            System.out.println("CPF do Titular editado com sucesso!\n");
+            
+                                        }
+                    
+                                        System.out.println("Pressione ENTER para continuar...");
+                                        entrada.nextLine();
+                    
+                                        break;
+    
+                                    default:
+                                        System.out.println("Opção inválida!");
+                                        System.out.println("\n");
+                                        System.out.println("Pressione ENTER para continuar...");
+                                        entrada.nextLine();
+                                        break;
+                                }
+                            
+                            }while(aux2);
+    
+                            } else {
+                                System.out.println("Conta não encontrada ou inexistente!");
+                                System.out.println("\n\n\n");
+                                System.out.println("Pressione ENTER para continuar...");
+                                entrada.nextLine();
                             }
-
-                        } else {
-                            System.out.println("Conta não encontrada ou inexistente!");
-                            System.out.println("\n\n\n");
-                            System.out.println("Pressione ENTER para continuar...");
-                            entrada.nextLine();
-                        }
-                    }
-
+                        }                             
+                    
                     break;
-                
+                    
                 case 3:
                     if(contas == 0){
                         System.out.println("Contas não encontradas ou inexistentes!");
