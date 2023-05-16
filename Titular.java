@@ -1,6 +1,7 @@
 public class Titular extends Pessoa {
     private int numeroConta;
     private double saldo = 0;
+    private int senha;
 
     public int pegarNumeroConta() {
         return numeroConta;
@@ -62,5 +63,12 @@ public class Titular extends Pessoa {
         
     }
 
+    public int pegarSenha() {
+        return senha;
+    }
+
+    public void definirSenha(int senha) {
+        this.senha = senha;
+    }
 }
 
