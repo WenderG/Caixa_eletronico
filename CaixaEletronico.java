@@ -63,6 +63,10 @@ public class CaixaEletronico {
                         titular.definirCpf(entrada.nextLine());
                         System.out.println();
 
+                        System.out.printf("Senha: ");
+                        titular.definirSenha(Integer.parseInt(entrada.nextLine()));
+                        System.out.println();
+
                         System.out.println("Deseja fazer um depósito inicial?");
                         System.out.printf("[1] - Sim\n[2] - Não\n");
                         System.out.println();
